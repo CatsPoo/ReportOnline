@@ -3,7 +3,7 @@ var config = require('../config/database');
 
 var reportSchema = mongoose.Schema({
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     startTime: {
@@ -25,6 +25,10 @@ var reportSchema = mongoose.Schema({
     comments:{
         type: String,
         required: false
+    },
+    isReport:{
+        type: Boolean,
+        require: true
     }
 });
 
