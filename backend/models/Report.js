@@ -12,9 +12,9 @@ var reportSchema = mongoose.Schema({
     },
     endTime: {
         type: String,
-        required: true
+        required: false
     },
-    דtaffMember:{
+    staffMember:{
         type: Object,
         required: true
     },
@@ -26,6 +26,10 @@ var reportSchema = mongoose.Schema({
         type: String,
         required: false
     },
+    requestTool:{
+        type: String,
+        required: true
+    },
     isReport:{
         type: Boolean,
         require: true
@@ -36,4 +40,20 @@ module.exports = mongoose.model('Report', reportSchema);
 
 module.exports.getReportById = function(id, callback) {
     Report.findById(id, callback);
+};
+
+module.exports.getAllReports=function(callback){
+    this.find(callback);
+}
+
+module.exports.addNewReport=function(newReport,callback){
+    newReport.save(callback);
+}
+
+module.exports.removeReport=function(id,callback){
+    this.findById(id).remove(callback);
+}
+
+module.exports.updateReport=function(id,updatedRepord,callback){
+    this.findById(id).update({ _id: id }, { updatedRepord }, callback);
 }
