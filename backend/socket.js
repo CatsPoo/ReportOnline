@@ -23,7 +23,7 @@ module.exports.Start = function () {
                 }
                 else {
                     //add the report for each client
-                    io.emit('addNewReport', {error:false ,data:report});
+                    io.emit('addNewReport', {error:false ,id:report._id});
                 }
             });
         });
