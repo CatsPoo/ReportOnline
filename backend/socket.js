@@ -1,11 +1,15 @@
-const io = require('socket.io');
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var report = require('./models/Report');
 
 module.exports.Start = function () {
+
+    console.log("Starting socket...");
     io.on('conection', (socket) => {
         console.log('user connected');
 
-        io.on('addNewReport', (reportObjet) => {
+        io.On('addNewReport', (reportObjet) => {
 
             var newReport = new Report({
                 date: reportObjet.date,
