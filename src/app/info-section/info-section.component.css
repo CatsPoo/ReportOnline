@@ -1,0 +1,34 @@
+.stepper-label-space{
+    margin-right: 8px;
+}
+
+.text-section{
+    margin-right: 5px;
+}
+
+.text-section > h3{
+    margin: 0;
+    margin-top: 10px;
+}
+
+
+.text-section > p{
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.buttons-container{
+    position: absolute;
+    bottom: 20px;
+
+    right: 85%;
+}
+
+.buttons-container > button{
+    margin-right: 10px;
+}
+
+
+.area-text-wrapper{
+    text-align: right;
+}

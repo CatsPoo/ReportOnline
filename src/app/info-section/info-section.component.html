@@ -1,0 +1,54 @@
+
+<mat-horizontal-stepper [linear]="false" #stepper style="direction: rtl;">
+
+    <mat-step>
+        <ng-template matStepLabel><div class='stepper-label-space'>פרטי תקלה</div></ng-template>
+
+        <div class="text-section">
+          <h3>מבקש התקלה</h3>
+          <p>רון גורליק</p>
+        </div>
+
+        <div class="text-section">
+            <h3>כלי בקשה</h3>
+            <p>מייל</p>
+        </div>
+
+        <div class="text-section">
+            <h3>מבצע תקלה</h3>
+            <p>דניאל טלאור מוזס</p>
+        </div>
+
+        <div class="text-section">
+            <h3>פירוט תקלה</h3>
+            <span>היי <br> אני צריך שתפתחו לי חסימות ברשת נ"ת <br> מכתובת 1.1.1.1 לכתובת 2.2.2.2 <br> בפורט 443</span>
+          </div>
+
+        <div class="buttons-container">
+          <button mat-fab color="warn" matTooltip="ערוך תקלה"><i class="material-icons">edit</i></button>
+          <button mat-fab color="primary" matTooltip="סיימתי את התקלה!" matStepperNext><i class="material-icons">done</i></button>
+        </div>
+
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel><div class="stepper-label-space">מה עשיתה בתקלה?</div></ng-template>
+        <mat-form-field style="width: 50%; direction: rtl;" class='area-text-wrapper'>
+          <textarea matInput placeholder="פרט מה עשיתה בתקלה" formControlName="secondCtrl" class='area-text-input' required></textarea>
+
+        </mat-form-field>
+        <div class="buttons-container">
+          <button mat-fab color="warn" matTooltip="חזרה אחורה" matStepperPrevious><i class="material-icons">arrow_forward</i></button>
+          <button mat-fab color="primary" matTooltip="סיים תקלה" matStepperNext><i class="material-icons">done</i></button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step style="text-align: center;">
+      <ng-template matStepLabel><div class="stepper-label-space">סיום</div></ng-template>
+      <i class="material-icons" style="font-size: 200px; color: green; margin: auto;">check_box</i>
+      <!-- <div>
+        <button mat-button matStepperPrevious>Back</button>
+      </div> -->
+    </mat-step>
+  </mat-horizontal-stepper>
