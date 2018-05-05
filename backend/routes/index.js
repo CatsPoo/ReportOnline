@@ -4,7 +4,11 @@ var socket=require('../socket');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  socket.Start();
+
+});
+
+router.get('/test', function(req, res, next) {
+  console.log('qqq');
 });
 
 module.exports = router;

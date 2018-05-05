@@ -1,15 +1,5 @@
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var report = require('./models/Report');
-
-module.exports.Start = function () {
-
-    console.log("Starting socket...");
-    io.on('conection', (socket) => {
-        console.log('user connected');
-
-        io.On('addNewReport', (reportObjet) => {
+var uploadReportToDB=function(reportObject){
+    console.log('addNewReport');
 
             var newReport = new Report({
                 date: reportObjet.date,
@@ -30,9 +20,10 @@ module.exports.Start = function () {
                     io.emit('addNewReport', {error:false ,id:report._id});
                 }
             });
-        });
+}
 
-        io.on('getAllReports', () => {
+var getAllReportsFromDB=function(){
+    console.log('getAllReports');
             report.getAllReports((err, data) => {
                 if (err)
                 {
@@ -41,27 +32,67 @@ module.exports.Start = function () {
                 }
                 else{
                     consolee.log(data);
-                    io.emit('getAllReports', { error: false, data: data });
+
+                    var reports=[];
+                    var tasks=[];
+
+                    data.forEach(node => {
+                        if (node.isReport)
+                            reports.push(node);
+                        else
+                            tasks.push(node);
+                    });
+
+                    io.emit('getAllReports', { error: false, reports: reports, tasks:tasks });
                 }
             })
+}
+
+
+var getGeneralData=function(){
+    console.log('getAllFirstData');
+    io.emit('getAllFirstData',{users: localData.users, systems:localData.systems});
+}
+
+var removeReportFromDB=function(reportID){
+    console.log('removeReport');
+    report.removeReport((err,res)=>{
+        if(err)
+        {
+            console.log(err);
+            io.emit('removeReport',{error: true,data: err});
+        }
+
+        else{
+            console.log(data);
+            io.emit('removeReport',{error: false})
+        }
+    });
+}
+
+
+var updateReportOnDB=function(reportID,newReport){
+
+}
+module.exports=function(io){
+    console.log("Starting socket...");
+    io.on('connection', (socket) => {
+        console.log('user connected');
+
+        socket.on('test',(str)=>{
+            console.log(str);
         });
 
-        io.on('removeReport',(reportID)=>{
-            report.removeReport((err,res)=>{
-                if(err)
-                {
-                    console.log(err);
-                    io.emit('removeReport',{error: true,data: err});
-                }
+        socket.on('addNewReport', (reportObjet) => uploadReportToDB(reportObjet));
 
-                else{
-                    console.log(data);
-                    io.emit('removeReport',{error: false})
-                }
-            });
-        });
+        socket.on('getAllReports', () => getAllReportsFromDB());
 
-        io.on('updateReport',(reportID,newReport)=>{
+        socket.on('getAllFirstData',()=>getGeneralData());
+
+        socket.on('removeReport',(reportID)=>removeReportFromDB(reportID));
+
+        socket.on('updateReport',(reportID,newReport)=>{
+            console.log('updateReport');
             var newReport=new Report({
                 date: newReport.date,
                 startTime: newReport.startTime,
