@@ -4,28 +4,44 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import * as io from 'socket.io-client';
+import * as Rx from 'rxjs/Rx';
 
 @Injectable()
-export class SocketService{
-    private url: string = '25.43.19.9:3000';
-    private socket;
+export class SocketService {
+  private url: string = 'localhost:3000';
+  private socket;
 
-    testConnection(){
-        this.socket = io(this.url);
 
-        this.socket.emit('test', 'hello ron');
-    }
+  constructor() {
+    this.socket = io(this.url);
+  }
 
-    getMessages() {
-        let observable = new Observable(observer => {
-          this.socket = io(this.url);
-          this.socket.on('message', (data) => {
-            observer.next(data);    
-          });
-          return () => {
-            this.socket.disconnect();
-          };  
-        })     
-        return observable;
-      }  
+  testConnection() {
+
+    this.socket.emit('test', 'hello ron');
+  }
+
+  getData() {
+    this.socket.on('getData', (data) => {
+      console.log(data);
+      return data
+
+    });
+
+    this.socket.emit('getData', 'hello server');
+  }
+
+  getReports() {
+    this.socket.on('getAllReports', (data) => {
+      return data;
+    });
+    this.socket.emit('getReports', 'hello server');
+  }
+
+  addNewReport(report){
+    this.socket.on('addNewReport', (data) => {
+      return data;
+    });
+    this.socket.emit('addNewReport', report);
+  }
 }

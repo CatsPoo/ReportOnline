@@ -46,7 +46,7 @@
     </mat-step>
     <mat-step style="text-align: center;">
       <ng-template matStepLabel><div class="stepper-label-space">סיום</div></ng-template>
-      <i class="material-icons" style="font-size: 200px; color: green; margin: auto;">check_box</i>
+      <i (click)="finish()" class="material-icons" style="font-size: 200px; color: green; margin: auto;">check_box</i>
       <!-- <div>
         <button mat-button matStepperPrevious>Back</button>
       </div> -->

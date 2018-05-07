@@ -15,6 +15,7 @@ import { InfoSectionComponent } from './info-section/info-section.component';
 
 
 import { SocketService } from '../services/sockets/sockets.service'
+import { Report } from '../services/Report/report.service';
 
 @NgModule({
   declarations: [

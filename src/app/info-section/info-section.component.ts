@@ -23,4 +23,8 @@ export class InfoSectionComponent implements OnInit {
     });
   }
 
+  finish()
+  {
+    console.log("click");
+  }
 }
