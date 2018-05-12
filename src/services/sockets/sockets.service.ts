@@ -1,3 +1,4 @@
+import { Report } from './../Report/report.service';
 import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -21,27 +22,61 @@ export class SocketService {
     this.socket.emit('test', 'hello ron');
   }
 
-  getData() {
-    this.socket.on('getData', (data) => {
-      console.log(data);
-      return data
-
-    });
-
-    this.socket.emit('getData', 'hello server');
-  }
-
   getReports() {
-    this.socket.on('getAllReports', (data) => {
-      return data;
-    });
-    this.socket.emit('getReports', 'hello server');
+    io.emit('getAllReports',{});
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('getAllReports', (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  }  
+
+  addReports(report) {
+    io.emit('addNewReport',report);
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('addNewReport', (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
   }
 
-  addNewReport(report){
-    this.socket.on('addNewReport', (data) => {
-      return data;
-    });
-    this.socket.emit('addNewReport', report);
+  removeReports(reportID) {
+    io.emit('removeReport',reportID);
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('removeReport', (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
   }
+
+  updateReports(reportID,newReport) {
+    io.emit('addNewReport',{id: reportID,report: newReport});
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('addNewReport', (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  }
+
+
 }
