@@ -1,19 +1,49 @@
-var uploadReportToDB=function(reportObject){
+var localdata=require('./models/localData');
+var Report=require('./models/Report');
+
+module.exports=function(io){
+    console.log("Starting socket...");
+   
+    io.on('connection', (socket) => {
+        console.log('user connected');
+
+        socket.on('test',(str)=>{
+            console.log(str);
+        });
+
+        socket.on('addNewReport', (reportObjet) => uploadReportToDB(io,reportObjet));
+
+        socket.on('getAllReports', () => getAllReportsFromDB(io));
+
+        socket.on('getGeneralData',(data)=>getGeneralData(io));
+
+        socket.on('removeReport',(reportID)=>removeReportFromDB(io,reportID));
+
+        socket.on('updateReport',(report)=> updateReportOnDB(io,report.id,report.report));
+
+    })
+
+    io.on('disconnection', (socket) => {
+        console.log('desconnected');
+    });
+}
+
+var uploadReportToDB=function(io,reportObject){
     console.log('addNewReport');
 
             var newReport = new Report({
-                date: reportObjet.date,
-                startTime: reportObjet.startTime,
-                staffMember: reportObjet.staffMember,
-                system: reportObjet.system,
-                comments: reportObjet.comments,
-                requetsTool: reportObjet.requetsTool,
+                date: reportObject._date,
+                startTime: reportObject._startTime,
+                staffMember: reportObject._staffMember,
+                system: reportObject._system,
+                comments: reportObject._comments,
+                requetsTool: reportObject._requetsTool,
                 isReport: false,
             });
 
-            report.addNewReport(newReport, (err, report) => {
+            Report.addNewReport(newReport, (err, report) => {
                 if (err) {
-                    io.emit('addNewReport',{error: true})
+                    io.emit('addNewReport',{error: true, data: err})
                 }
                 else {
                     //add the report for each client
@@ -22,9 +52,10 @@ var uploadReportToDB=function(reportObject){
             });
 }
 
-var getAllReportsFromDB=function(){
+var getAllReportsFromDB=function(io){
     console.log('getAllReports');
-            report.getAllReports((err, data) => {
+            Report.getAllReports((err, data) => {
+                console.log('aaa');
                 if (err)
                 {
                     console.log(err);
@@ -49,12 +80,12 @@ var getAllReportsFromDB=function(){
 }
 
 
-var getGeneralData=function(){
-    console.log('getAllFirstData');
-    io.emit('getAllFirstData',{users: localData.users, systems:localData.systems});
+var getGeneralData=function(io){
+    console.log('getGeneralData     '+localdata);
+    io.emit('getGeneralData',{users: localdata.users, systems:localdata.systems});
 }
 
-var removeReportFromDB=function(reportID){
+var removeReportFromDB=function(io,reportID){
     console.log('removeReport');
     report.removeReport((err,res)=>{
         if(err)
@@ -71,39 +102,15 @@ var removeReportFromDB=function(reportID){
 }
 
 
-var updateReportOnDB=function(reportID,newReport){
-
-}
-module.exports=function(io){
-    console.log("Starting socket...");
-    io.on('connection', (socket) => {
-        console.log('user connected');
-
-        socket.on('test',(str)=>{
-            console.log(str);
-        });
-
-        socket.on('addNewReport', (reportObjet) => uploadReportToDB(reportObjet));
-
-        socket.on('getAllReports', () => getAllReportsFromDB());
-
-        socket.on('getAllFirstData',()=>getGeneralData());
-
-        socket.on('removeReport',(reportID)=>removeReportFromDB(reportID));
-
-        socket.on('updateReport',(reportID,newReport)=>{
-            console.log('updateReport');
-            var newReport=new Report({
-                date: newReport.date,
-                startTime: newReport.startTime,
-                endTime: newReport.endTime,
-                system: newReport.system,
-                comments: newReport.comments,
-                requetsTool: newReport.requetsTool,
-                isReport: newReport.isReport,
-            });
-        });
-
-
-    })
+var updateReportOnDB=function(io,reportID,newReport){
+    console.log('updateReport');
+    var newReport=new Report({
+        date: newReport.date,
+        startTime: newReport.startTime,
+        endTime: newReport.endTime,
+        system: newReport.system,
+        comments: newReport.comments,
+        requetsTool: newReport.requetsTool,
+        isReport: newReport.isReport,
+    });
 }

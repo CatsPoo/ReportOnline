@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,10 +12,23 @@ var index = require('./routes/index');
 
 var app = express();
 
+var mongoose=require('mongoose');
+var config=require('./config/database');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'jade');
 
+
+mongoose.connect(config.database);
+
+mongoose.connection.on('connected',()=>{
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error',()=>{
+  console.log('Failed to connect  MongoDB');
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
