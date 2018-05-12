@@ -39,7 +39,7 @@ var reportSchema = mongoose.Schema({
 module.exports = mongoose.model('Report', reportSchema);
 
 module.exports.getReportById = function(id, callback) {
-    Report.findById(id, callback);
+    this.findById(id, callback);
 };
 
 module.exports.getAllReports=function(callback){
@@ -47,6 +47,7 @@ module.exports.getAllReports=function(callback){
 }
 
 module.exports.addNewReport=function(newReport,callback){
+    console.log(JSON.stringify(newReport));
     newReport.save(callback);
 }
 
