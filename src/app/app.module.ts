@@ -13,9 +13,15 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { InfoSectionComponent } from './info-section/info-section.component';
 
+import { RouterModule, Routes } from '@angular/router';
+
 
 import { SocketService } from '../services/sockets/sockets.service'
-import { Report } from '../services/Report/report.service';
+import { Route } from '@angular/compiler/src/core';
+
+const appRoutes: Routes = [
+  {path: 'info', component: InfoSectionComponent}
+]
 
 @NgModule({
   declarations: [
@@ -39,7 +45,11 @@ import { Report } from '../services/Report/report.service';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule.forRoot(
+      appRoutes,
+        {enableTracing: true}
+    )
    ],
   providers: [MatDatepickerModule, SocketService],
   bootstrap: [AppComponent]

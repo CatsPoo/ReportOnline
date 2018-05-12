@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -9,6 +9,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./info-section.component.css']
 })
 export class InfoSectionComponent implements OnInit {
+  @Input() reportInfo: {};
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 

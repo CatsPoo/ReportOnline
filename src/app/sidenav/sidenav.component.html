@@ -19,6 +19,7 @@
 
       </div>
 
+<<<<<<< HEAD
       <mat-list-item class="mat-list-item-hover active">
         <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
         <h3 matLine style="padding-right: 16px"> פתיחת חסימה</h3>
@@ -58,6 +59,15 @@
             <span>{{report.system}}</span>
           </p>
       </mat-list-item>
+=======
+      <mat-list-item class="mat-list-item-hover" *ngFor="let reportItem of reportsList ; let idx  = index" (click)='itemListClicked(idx)'>
+        <img matListAvatar src="{{reportItem.reportTender.imageUrl}}" alt="{{idx}}">
+        <h3 matLine style="padding-right: 16px">{{reportItem.reportTitle}}</h3>
+        <p matLine style="padding-right: 16px">
+          <span>{{reportItem.reportTip}}</span>
+        </p>
+    </mat-list-item>
+>>>>>>> app-commit
 
     </mat-list>      
 
