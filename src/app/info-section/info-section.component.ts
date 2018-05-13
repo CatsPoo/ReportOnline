@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-info-section',
@@ -14,7 +16,7 @@ export class InfoSectionComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -23,6 +25,10 @@ export class InfoSectionComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+
+    this.route.params.subscribe(data => {
+      console.log(data.reportTitle);
+    })
   }
 
   finish()

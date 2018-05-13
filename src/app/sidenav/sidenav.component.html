@@ -19,55 +19,13 @@
 
       </div>
 
-<<<<<<< HEAD
-      <mat-list-item class="mat-list-item-hover active">
-        <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
-        <h3 matLine style="padding-right: 16px"> פתיחת חסימה</h3>
-        <p matLine style="padding-right: 16px">
-          <span>פתיחת חסימה בFW אינטרנט</span>
-        </p>
-    </mat-list-item>
-  
-    <mat-list-item class="mat-list-item-hover">
-        <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
-        <h3 matLine style="padding-right: 16px"> פתיחת חסימה</h3>
-        <p matLine style="padding-right: 16px">
-          <span>פתיחת חסימה בFW אינטרנט</span>
-        </p>
-    </mat-list-item>
-
-    <mat-list-item class="mat-list-item-hover">
-        <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
-        <h3 matLine style="padding-right: 16px"> פתיחת חסימה</h3>
-        <p matLine style="padding-right: 16px">
-          <span>פתיחת חסימה בFW אינטרנט</span>
-        </p>
-    </mat-list-item>
-
-    <mat-list-item class="mat-list-item-hover">
-        <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
-        <h3 matLine style="padding-right: 16px"> פתיחת חסימה</h3>
-        <p matLine style="padding-right: 16px">
-          <span>פתיחת חסימה בFW אינטרנט</span>
-        </p>
-    </mat-list-item>
-    
-      <mat-list-item *ngFor="let report of this.reportsList" class="mat-list-item-hover active" >
-          <img matListAvatar src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/22089523_1707779525908473_4601209041474943550_n.jpg?_nc_cat=0&oh=eba773e982f7a6d9331ed940ae17e099&oe=5B50F26B" alt="...">
-          <h3 matLine style="padding-right: 16px"> {{report.type}}</h3>
-          <p matLine style="padding-right: 16px">
-            <span>{{report.system}}</span>
-          </p>
-      </mat-list-item>
-=======
-      <mat-list-item class="mat-list-item-hover" *ngFor="let reportItem of reportsList ; let idx  = index" (click)='itemListClicked(idx)'>
+      <mat-list-item class="mat-list-item-hover" *ngFor="let reportItem of reportsList ; let idx  = index" [routerLink]="['/info', reportItem]">
         <img matListAvatar src="{{reportItem.reportTender.imageUrl}}" alt="{{idx}}">
         <h3 matLine style="padding-right: 16px">{{reportItem.reportTitle}}</h3>
         <p matLine style="padding-right: 16px">
           <span>{{reportItem.reportTip}}</span>
         </p>
     </mat-list-item>
->>>>>>> app-commit
 
     </mat-list>      
 

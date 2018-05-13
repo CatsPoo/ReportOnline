@@ -15,7 +15,7 @@ export class SidenavComponent implements OnInit {
   private tasksList=[]
 
   constructor(private socketService:SocketService) {
-    let data:any=this.socketService.getReports();
+    // let data:any=this.socketService.getReports();
     //this.reportsList=data.reports;
     //this.tasksList=data.tasks;
 
