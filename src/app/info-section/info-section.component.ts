@@ -27,7 +27,7 @@ export class InfoSectionComponent implements OnInit {
     });
 
     this.route.params.subscribe(data => {
-      console.log(data.reportTitle);
+      console.log(+data['reportTitle']);
     })
   }
 
